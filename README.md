@@ -1,4 +1,4 @@
-# ROS2-GUI
+# ROS2-basoc-GUI
 ![Full Screen](assets/full_pic.png)
 
 
