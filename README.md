@@ -1,4 +1,4 @@
-# ROS2-basoc-GUI
+# ROS2 basic GUI with PyQT
 ![Full Screen](assets/full_pic.png)
 
 
