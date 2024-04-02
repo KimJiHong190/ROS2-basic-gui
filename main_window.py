@@ -27,8 +27,6 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout()
 
         # Image
-        pixmap = QPixmap("rodel_logo.png")
-        pixmap = pixmap.scaled(400, 400, Qt.KeepAspectRatio)
         label_image = QLabel(self)
         label_image.setPixmap(pixmap)
 
@@ -38,7 +36,7 @@ class MainWindow(QMainWindow):
         topLayout.addWidget(label_image)
         layout.addLayout(topLayout)
 
-        # Skid steering group
+        # Slider group
         self.skidSteeringGroup = QGroupBox("Slider Controller")
         skidLayout = QHBoxLayout()
 
@@ -53,7 +51,7 @@ class MainWindow(QMainWindow):
         self.max_labels = []
         self.stop_buttons_slider = []
         self.zero_buttons_slider = []
-
+  
         for i in range(4):
             vLayout = QVBoxLayout()
             for j in range(2):
@@ -63,13 +61,17 @@ class MainWindow(QMainWindow):
                 label = QLabel(slider_names[i*2 + j])
                 
                 slider = QSlider(Qt.Vertical)
-                slider.setMinimum(-10)
-                slider.setMaximum(10)
+                if i == 0 and j == 0:  # This identifies the first slider (slider1)
+                    slider.setMinimum(-100)   # Represents -1.0
+                    slider.setMaximum(100)    # Represents 1.0
+                else:
+                    slider.setMinimum(-10)
+                    slider.setMaximum(10)
                 slider.setValue(0)
                 slider.setTickPosition(QSlider.TicksLeft)
                 slider.setTickInterval(5)
                 slider.setFixedHeight(150)
-                
+
                 slider_value = QLabel("0")
                 self.slider_values.append(slider_value)
 

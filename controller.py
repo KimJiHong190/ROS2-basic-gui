@@ -8,6 +8,7 @@ import sys
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
+from geometry_msgs.msg import Twist
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QTimer
 from main_window import MainWindow
@@ -21,7 +22,7 @@ class Controller(Node, MainWindow):
 
        # ROS2 publisher
        # Allow for the replacement of another topic message here
-        self.publisher0 = self.create_publisher(JointState, 'joint_states1', 10)
+        self.publisher0 = self.create_publisher(Twist, '/cmd_vel', 10)
         self.publisher1 = self.create_publisher(JointState, 'joint_states2', 10)
         self.publisher2 = self.create_publisher(JointState, 'joint_states3', 10)
         self.publisher3 = self.create_publisher(JointState, 'joint_states4', 10)
@@ -79,6 +80,7 @@ class Controller(Node, MainWindow):
 
 
     def slider1_value_changed(self):
+        self.slider_values[0].setText(f"{self.sliders[0].value()/100:.2f}")
         self.active_sliders[0] = True
 
     def slider2_value_changed(self):
@@ -102,6 +104,8 @@ class Controller(Node, MainWindow):
     def slider8_value_changed(self):
         self.active_sliders[7] = True
 
+
+################# Don't Touch #########################
 
     def create_set_min_func(self, i):
         def func():
@@ -148,6 +152,7 @@ class Controller(Node, MainWindow):
             self.line_edits[i].setText('0')
         return func
 
+#######################################################
 
     '''
     sensor_msgs/JointState Message configurations
@@ -170,10 +175,8 @@ class Controller(Node, MainWindow):
     '''
     
     def publish1_joint_state(self, slider_index):
-        msg = JointState()
-        msg.header.stamp = self.get_clock().now().to_msg()
-        msg.name = [f"joint{1}"]
-        msg.position = [float(self.sliders[0].value())]
+        msg = Twist()
+        msg.linear.x = float(self.sliders[0].value()) / 100.0
         #msg.velocity = [float(value)]
         #msg.effort = [float(value)]
         self.publisher0.publish(msg)
