@@ -27,13 +27,10 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout()
 
         # Image
-        label_image = QLabel(self)
-        label_image.setPixmap(pixmap)
 
         # Layout for image in the top right corner
         topLayout = QHBoxLayout()
         topLayout.addStretch(1)
-        topLayout.addWidget(label_image)
         layout.addLayout(topLayout)
 
         # Slider group
