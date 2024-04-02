@@ -1,4 +1,7 @@
 # ROS2 basic GUI with PyQT
+
+updated ver: https://github.com/KimJiHong190/robot_gui_pkg
+
 ![Full Screen](assets/full_pic.png)
 
 
